@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-8">
+        <div class="page-header pt-4">
+            <h1>Users</h1>
+        </div>
+        <hr>
+        <div class="list-group">
+            {% for user in users %}
+            <a href="{{ url_for('main.promote', user_id=user.id) }}" 
+                class="list-group-item {% if user.expert %}active{% endif %}">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ user.username|capitalize }}</h5>
+                    {% if user.expert %}
+                    <h5>This user is an expert on the site</h5>
+                    {% endif %}
+                </div>
+            </a> 
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

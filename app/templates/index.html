@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Questions & Answers{% endblock %}
+
+{% block content %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-8">
+        <div class="page-header pt-4">
+            <h1>Hi, {{ current_user.username|capitalize }}</h1>
+            {% if not current_user.expert %}
+            <h3>What do you want to ask our experts?</h3>
+            {% else %}
+            <h3>Are there any questions that need answers?</h3>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="list-group">
+            {% for question in questions %}
+            <a href="{{ url_for('main.question', question_id=question.id) }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ question.question }}</h5>
+                </div>
+                <p class="mb-1">Asked by: {{ question.asker.username|capitalize }}</p>
+                <p class="mb-1">Answered by: {{ question.expert.username|capitalize }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
